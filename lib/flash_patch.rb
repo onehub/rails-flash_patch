@@ -16,12 +16,11 @@ module ActionDispatch
   end
   class Cookies
     class SignedCookieJar
-      def initialize(parent_jar, secret)
-        ensure_secret_secure(secret)
-        @parent_jar = parent_jar
-        @verifier   = ActiveSupport::MessageVerifier.new(secret)
+      def initialize_with_nonloading_verifier(parent_jar, secret)
+        initialize_without_nonloading_verifier(parent_jar, secret)
         @nonloading_verifier = ActiveSupport::MessageVerifier.new(secret, :serializer => DummySerializer)
       end
+      alias_method_chain :initialize, :nonloading_verifier
       def [](name)
         if signed_message = @parent_jar[name]
           begin
