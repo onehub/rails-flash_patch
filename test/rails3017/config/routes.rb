@@ -1,5 +1,6 @@
 Rails3017::Application.routes.draw do
   match 'action_with_flash' => 'application#action_with_flash'
+  match 'inspect_session' => 'application#inspect_session'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

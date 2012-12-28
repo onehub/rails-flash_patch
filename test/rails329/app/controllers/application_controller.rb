@@ -5,4 +5,9 @@ class ApplicationController < ActionController::Base
     flash[:warn] = 'foo'
     render :nothing => true
   end
+
+  def inspect_session
+    p session
+    render :text => session.inspect
+  end
 end
