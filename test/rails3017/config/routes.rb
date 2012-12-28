@@ -1,4 +1,5 @@
 Rails3017::Application.routes.draw do
+  match 'action_with_flash' => 'application#action_with_flash'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
