@@ -1,4 +1,7 @@
+$:.unshift File.dirname(__FILE__)
 require 'action_dispatch/middleware/cookies'
+require 'flash_patch/rails_3_0_session_loader'
+
 module ActionDispatch
   class DummySerializer
     def self.load(string)
@@ -28,20 +31,7 @@ module ActionDispatch
           rescue ArgumentError
             string = @nonloading_verifier.verify(signed_message)
 
-            # Swap FlashHash Class
-            original_flash_hash_klass = ActionDispatch::Flash::FlashHash
-            ActionDispatch::Flash.send :remove_const, :FlashHash
-            ActionDispatch::Flash.const_set 'FlashHash', Flash::FlashHashKludge
-
-            session = Marshal.load string
-            flash_messages_from_original_klass = session.delete('flash')
-
-            # Restore FlashHash Class
-            ActionDispatch::Flash.send :remove_const, :FlashHash
-            ActionDispatch::Flash.const_set 'FlashHash', original_flash_hash_klass
-
-            session['flash'] = ActionDispatch::Flash::FlashHash.new.update(flash_messages_from_original_klass)
-            session
+            FlashPatch::Rails30SessionLoader.new(string).load_session
           end
         end
       rescue ActiveSupport::MessageVerifier::InvalidSignature
