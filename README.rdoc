@@ -1,0 +1,31 @@
+== Flash Patch for Rails
+
+This library monkey patches Rails sessions so that flash messages can
+inter-operate between Rails 3.0 apps and Rails 3.1+ apps.
+
+Current, only support for accessing flash messages in Rails 3.1+ apps
+that were created in Rails 3.0 apps is provided
+
+WARNING: This library currently makes fully use of Ruby's dynamic
+abilities. Heavy monkey patching and constant redefining is used, so
+it may not be safe to use with your application.
+
+== Testing
+
+Test support is currently provided for the case of a session created in
+a Rails 3.0 app being accessed in a Rails 3.1 app. The patch was tested
+with freshly-created Rails 3.0.17, 3.2.3, and 3.2.9 apps that use
+cookie-based session stores.
+
+An example session with a flash message from the Rails 3.0.17 app is
+provided in test/session_examples. The script located in 
+"flash_patch_test_3_0_session.rb"  uses that session to test loading.
+
+To run the test, cd to one of the Rails 3.2.* apps and then run:
+
+  rails runner ../flash_patch_test_3_0_session.rb
+
+== TODO
+
+1. Support for flash messages created in Rails 3.1+ apps to be accessed in Rails 3.0 apps
+2. Reduce dependencies, need for monkey patch, use of const_set/remove_const as much as possible
