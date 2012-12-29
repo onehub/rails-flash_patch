@@ -5,17 +5,12 @@ module FlashPatch
     end
 
     def load_session
-      # Swap FlashHash Class
-      original_flash_hash_klass = ActionDispatch::Flash::FlashHash
-      ActionDispatch::Flash.send :remove_const, :FlashHash
-      ActionDispatch::Flash.const_set 'FlashHash', ActionDispatch::Flash::FlashHashKludge
-      session = Marshal.load @decrypted_session_string
+      # From trial-and-error, we can change one letter in the name of
+      # class in the Marshal-dumped string. So, we can call the backport
+      # class FlashGash and use gsub so that Marshal will load the Rails 3.0 session
+      # hash using it
+      session = Marshal.load @decrypted_session_string.gsub('FlashHash','FlashGash')
       flash_messages_from_original_klass = session.delete('flash')
-
-      # Restore FlashHash Class
-      ActionDispatch::Flash.send :remove_const, :FlashHash
-      ActionDispatch::Flash.const_set 'FlashHash', original_flash_hash_klass
-
       session['flash'] = ActionDispatch::Flash::FlashHash.new.update(flash_messages_from_original_klass)
       session
     end

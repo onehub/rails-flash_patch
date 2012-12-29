@@ -10,12 +10,7 @@ module ActionDispatch
   end
   class Flash
     # Based on definition of FlashHash in Rails 3.0
-    class FlashHashKludge < Hash
-      def initialize #:nodoc:
-        super
-        @used = Set.new
-      end
-    end
+    FlashGash = Class.new(Hash)
   end
   class Cookies
     class SignedCookieJar
