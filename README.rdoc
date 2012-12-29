@@ -29,3 +29,4 @@ To run the test, cd to one of the Rails 3.2.* apps and then run:
 
 1. Support for flash messages created in Rails 3.1+ apps to be accessed in Rails 3.0 apps
 2. Reduce dependencies, need for monkey patch, use of const_set/remove_const as much as possible
+3. Use a testing package for the test described above instead of relying on rails runner and console output
