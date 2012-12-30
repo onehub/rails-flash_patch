@@ -27,7 +27,7 @@ if Rails::VERSION::STRING.match /^3.0/
               data, digest = signed_message.split("--")
               string = ActiveSupport::Base64.decode64(data)
 
-              FlashPatch::Rails31SessionLoader.new(string).load_session
+              FlashPatch::Rails31SessionLoader.load_session(string)
             end
           end
         rescue ActiveSupport::MessageVerifier::InvalidSignature
@@ -61,7 +61,7 @@ else
             rescue ArgumentError
               string = @nonloading_verifier.verify(signed_message)
 
-              FlashPatch::Rails30SessionLoader.new(string).load_session
+              FlashPatch::Rails30SessionLoader.load_session(string)
             end
           end
         rescue ActiveSupport::MessageVerifier::InvalidSignature
