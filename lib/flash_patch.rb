@@ -1,5 +1,6 @@
 $:.unshift File.dirname(__FILE__)
 require 'action_dispatch/middleware/cookies'
+require 'flash_patch/version'
 require 'flash_patch/rails_3_0_session_loader'
 require 'flash_patch/rails_3_1_session_loader'
 
