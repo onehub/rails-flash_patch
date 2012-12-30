@@ -4,13 +4,7 @@ require 'flash_patch/rails_3_0_session_loader'
 require 'flash_patch/rails_3_1_session_loader'
 
 if Rails::VERSION::STRING.match /^3.0/
-  p '30'
   module ActionDispatch
-    class DummySerializer
-      def self.load(string)
-        string
-      end
-    end
     class Flash
       # Based on definition of FlashHash in Rails 3.0
       FlashGash = Class.new do
