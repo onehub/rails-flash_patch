@@ -1,3 +1,9 @@
+PATH
+  remote: ../..
+  specs:
+    rails-flash_patch (0.0.1)
+      actionpack (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -75,4 +81,5 @@ PLATFORMS
 
 DEPENDENCIES
   rails (= 3.0.17)
+  rails-flash_patch!
   sqlite3
