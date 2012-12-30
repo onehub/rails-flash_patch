@@ -3,6 +3,12 @@
 This library monkey patches Rails sessions so that flash messages can
 inter-operate between Rails 3.0 apps and Rails 3.1+ apps.
 
+== Installation
+
+Add to your Gemfile:
+  
+  gem 'rails-flash_patch', :require => 'flash_patch'
+
 == Testing
 
 To run the test for a Rails 3.0 session, cd to one of the Rails 3.2.* apps and then run:
