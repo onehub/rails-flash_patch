@@ -6,12 +6,15 @@ module FlashPatch
       # class FlashGash and use gsub so that Marshal will load the Rails 3.0 session
       # hash using it
       idx   = decrypted_session_string.index('FlashHash')
-      g_idx = idx + 5
 
-      cleaned_string = decrypted_session_string.dup
-      cleaned_string[g_idx] = 'G'
+      if idx
+        g_idx = idx + 5
 
-      session = Marshal.load cleaned_string
+        decrypted_session_string = decrypted_session_string.dup
+        decrypted_session_string[g_idx] = 'G'
+      end
+
+      session = Marshal.load decrypted_session_string
 
       flash_messages_from_original_klass = session.delete('flash')
       session['flash'] = ActionDispatch::Flash::FlashHash.new.update(flash_messages_from_original_klass)
